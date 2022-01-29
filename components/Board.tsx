@@ -185,6 +185,11 @@ const Board: FC<props> = ({}) => {
     });
   };
 
+  const openVirtualKeyboard = () => {
+    console.log("clicked");
+    game.state !== GameState.FINISHED && inputRef?.current?.focus();
+  };
+
   return (
     <>
       <input
@@ -216,6 +221,7 @@ const Board: FC<props> = ({}) => {
                     ? " animate-shake"
                     : "")
                 }
+                onClick={openVirtualKeyboard}
               >
                 {wordChars.map((w, charIndex) => {
                   return (
