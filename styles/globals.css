@@ -1,16 +1,76 @@
+@import '~notyf/notyf.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    direction: rtl;
+}
+
+body {
+    color: white;
+    background: #111;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Vazir', sans-serif;
+    line-height: 2rem;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: #809fff;
+    text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.success-notyf {
+    color: #3a3a3c;
+    position: relative;
+}
+
+.notyf__message {
+    animation: none !important;
+    opacity: 1 !important;
+    direction: rtl;
+}
+
+.notyf__wrapper {
+    padding: 8px !important;
+    transition: none !important;
+}
+
+.notyf__toast {
+    width: unset !important;
+}
+
+.divider {
+    @apply border-b-smoke border-b w-full;
+}
+
+.loading-spinner {
+    visibility: hidden;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+.show {
+    visibility: visible !important;
+}
+
+@keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
 }
