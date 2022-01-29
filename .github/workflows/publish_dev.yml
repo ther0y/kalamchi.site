@@ -1,0 +1,33 @@
+name: Publish Dev
+on:
+  push:
+    branches: [dev]
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+      - name: Setup Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Setup Fandogh CLI
+        run: |
+          pip install fandogh-cli
+      - name: deploy
+        env:
+          FANDOGH_SERVICE_NAME: ${{ secrets.FANDOGH_SERVICE_NAME_DEV }}
+          FANDOGH_USERNAME: ${{ secrets.FANDOGH_USERNAME }}
+          FANDOGH_PASSWORD: ${{ secrets.FANDOGH_PASSWORD }}
+          APP_DOMAIN: ${{ secrets.APP_DOMAIN_DEV }}
+          VAJEHYAB_TOKEN: ${{ secrets.VAJEHYAB_TOKEN }}
+        run: |
+          yes | fandogh login --username="$FANDOGH_USERNAME" --password="$FANDOGH_PASSWORD"
+          fandogh image init --name="$FANDOGH_SERVICE_NAME"
+          fandogh image publish --version="v$GITHUB_RUN_ID"
+          fandogh service deploy --image="$FANDOGH_SERVICE_NAME" --version="v$GITHUB_RUN_ID" --name="$FANDOGH_SERVICE_NAME" --port 5050 --hosts="$APP_DOMAIN" --env VAJEHYAB_TOKEN="$VAJEHYAB_TOKEN"
