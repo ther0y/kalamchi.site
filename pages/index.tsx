@@ -78,7 +78,7 @@ const Home: NextPage<props> = ({ game, currentGameTime, nextGameTime }) => {
             </a>
             ،
             <a
-              href="https://github.com/ther0y/kalamchi"
+              href="https://github.com/ther0y/kalamchi.site"
               target="_blank"
               rel="noreferrer"
             >
