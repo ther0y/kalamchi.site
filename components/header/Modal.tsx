@@ -16,7 +16,7 @@ const Modal: FC = () => {
 
   if (!isVisible) return null;
 
-  const renderer = ({ hours, minutes, seconds, completed }) => {
+  const renderer = ({ hours, minutes, seconds, completed }: any) => {
     if (completed) {
       // Render a completed state
       return null;
