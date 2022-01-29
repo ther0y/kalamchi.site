@@ -186,7 +186,6 @@ const Board: FC<props> = ({}) => {
   };
 
   const openVirtualKeyboard = () => {
-    console.log("clicked");
     game.state !== GameState.FINISHED && inputRef?.current?.focus();
   };
 
@@ -194,8 +193,8 @@ const Board: FC<props> = ({}) => {
     <>
       <input
         type="text"
-        className="invisible fixed"
-        style={{ opacity: 1 }}
+        className="fixed"
+        style={{ opacity: 0 }}
         ref={inputRef}
       />
       <div className="my-8">
