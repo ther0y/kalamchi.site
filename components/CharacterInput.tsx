@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import { inspect } from "util";
 import styles from "./CharacterInput.module.css";
 
 type props = {
@@ -28,7 +27,7 @@ const CharacterInput: FC<props> = ({
   let classes = styles.block;
 
   useEffect(() => {
-    const remainings = word
+    const remaining = word
       .split("")
       .map((w, index) => {
         if (w === guess[index]) return "/";
@@ -45,7 +44,7 @@ const CharacterInput: FC<props> = ({
       (disabled &&
         char &&
         shouldBe !== char &&
-        remainings.includes(char) &&
+        remaining.includes(char) &&
         guess.indexOf(char) === index);
 
     setCorrect(!!correct);
@@ -53,10 +52,10 @@ const CharacterInput: FC<props> = ({
   }, [char, disabled, sample, status, word]);
 
   if (sample) classes += ` ${styles.sample}`;
-  if (disabled) classes += ` ${styles.disabled}`;
   if (correct) classes += ` ${styles.correct}`;
   if (contains) classes += ` ${styles.contains}`;
   if (!sample && !!char) classes += ` ${styles.bang}`;
+  if (disabled) classes += ` ${styles.disabled}`;
 
   return <div className={classes + " duration-800"}>{char || "‌ "}</div>;
 };

@@ -1,5 +1,5 @@
 .block {
-  @apply transition-all transform bg-[#333] capitalize border-2 border-[#B6B6B6FF] rounded-md w-[60px] h-[60px] m-0 inline-flex items-center justify-center text-2xl font-bold p-0 text-white select-none;
+  @apply transition-all transform bg-[#333] capitalize border-2 border-[#B6B6B6FF] rounded-md w-[44px] h-[44px] md:w-[60px] md:h-[60px] m-0 inline-flex items-center justify-center text-2xl font-bold p-0 text-white select-none;
 }
 
 .sample {

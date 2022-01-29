@@ -55,8 +55,8 @@ a {
 
 .loading-spinner {
     visibility: hidden;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border: 3px solid rgba(255,255,255,.3);
     border-radius: 50%;
     border-top-color: #fff;

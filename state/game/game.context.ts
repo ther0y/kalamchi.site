@@ -13,6 +13,9 @@ export type Game = {
 export type GameManager = {
   game: Game;
   setGame: (game: Game) => void;
+  won: boolean;
+  setWon: (hasWon: boolean) => void;
+  journeySummery: { wins: number; games: number; winPercentage: number };
 };
 
 export const GameContext = React.createContext<GameManager>({} as GameManager);

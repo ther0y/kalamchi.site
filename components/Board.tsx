@@ -32,18 +32,24 @@ if (typeof window !== "undefined") {
     dismissible: false,
   });
 }
+
 type props = {};
 
 const Board: FC<props> = ({}) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const { game, setGame: _setGame } = useContext(GameContext);
+  const [showIndicators, setShowIndicators] = useState(false);
 
   const gameStateRef = React.useRef(game);
   const setGame = (data: any) => {
     gameStateRef.current = data;
     _setGame(data);
   };
+
+  useEffect(() => {
+    setShowIndicators(true);
+  }, [game]);
 
   let word: GameWord = JSON.parse(Base64.decode(Base64.decode(game.word)));
 
@@ -75,8 +81,6 @@ const Board: FC<props> = ({}) => {
     if (game.state !== GameState.FINISHED) {
       const key = e.key;
 
-      console.log({ key });
-
       const isGuessFilled = currentGuess.value.length === word.value.length;
 
       if (!isProcessing && key === "Enter") {
@@ -99,8 +103,6 @@ const Board: FC<props> = ({}) => {
               const json = await response.json();
               setIsLoading(false);
 
-              console.log({ json });
-
               if (json?.body?.count) {
                 if (hasMoreGuess) {
                   await shake();
@@ -115,7 +117,7 @@ const Board: FC<props> = ({}) => {
                     ...game,
                     state: GameState.FINISHED,
                   });
-                  setIsProcessing(false);
+                  return setIsProcessing(false);
                 }
               } else {
                 notyf.success("همچین کلمه‌ای نداریم!");
@@ -164,7 +166,6 @@ const Board: FC<props> = ({}) => {
   }, []);
 
   useEffect(() => {
-    console.log("here");
     setWordChars(
       word.value.split("").map((char, id) => ({
         id,
@@ -198,8 +199,9 @@ const Board: FC<props> = ({}) => {
             <div className="flex items-center justify-center gap-4" key={index}>
               <div
                 className={
-                  "text-[1.625rem] " +
-                  (index === game.guessIndex &&
+                  "text-[1.25rem] md:text-[1.625rem] " +
+                  (showIndicators &&
+                  index === game.guessIndex &&
                   game.state !== GameState.FINISHED
                     ? "visible"
                     : "invisible")
@@ -219,12 +221,13 @@ const Board: FC<props> = ({}) => {
                   return (
                     <span key={charIndex}>
                       <CharacterInput
-                        char={ag.parts[w.id]}
+                        char={showIndicators ? ag.parts[w.id] : "‌ "}
                         index={charIndex}
                         guess={ag.value}
                         shouldBe={word.value[charIndex]}
                         word={word.value}
                         disabled={
+                          !showIndicators ||
                           index < game.guessIndex ||
                           game.state === GameState.FINISHED
                         }
