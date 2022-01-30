@@ -91,14 +91,12 @@ const Home: NextPage<props> = ({ game, currentGameTime, nextGameTime }) => {
   );
 };
 
-export async function getStaticProps(): Promise<{
-  revalidate: number;
+export async function getServerSideProps(): Promise<{
   props: props;
 }> {
   const wordData = JSON.parse(Base64.decode(Base64.decode(CurrentWord)));
 
   return {
-    revalidate: 45 * 60, // In seconds
     props: {
       currentGameTime: CurrentGameTime,
       nextGameTime: NextGameTime,
