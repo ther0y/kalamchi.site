@@ -19,7 +19,7 @@ const GameProvider: FC<props> = ({ initialState, children }) => {
   const journeyState = JSON.parse(journeyStateBox.get() || "{}");
 
   let gameState =
-    initialState.id === savedState.id && initialState.word === savedState.word
+    initialState.id === savedState.id
       ? { ...initialState, ...savedState }
       : initialState;
 
