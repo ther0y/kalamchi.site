@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta
           name="og:image"
-          content="https://kalamchi.site/android-chrome-512x512.png"
+          content="https://kalamchi.site/icons/android-chrome-512x512.png"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@__masood_" />
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="twitter:description" content="یک Wordle فارسی دیگه!" />
         <meta
           name="twitter:image"
-          content="https://kalamchi.site/android-chrome-512x512.png"
+          content="https://kalamchi.site/icons/android-chrome-512x512.png"
         />
         <link
           href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css"
