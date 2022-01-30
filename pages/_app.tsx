@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="og:image"
           content="https://kalamchi.site/icons/android-chrome-512x512.png"
         />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@__masood_" />
         <meta name="twitter:creator" content="@__masood_" />
         <meta name="twitter:title" content="کلمچی | بازی حدس کلمه" />
