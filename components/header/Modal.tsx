@@ -1,8 +1,9 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 import { resultTitle } from "../../utils/result-helper";
 import { GameContext } from "../../state/game/game.context";
-import { GameState, NextGameTime } from "../../utils/game-utils";
+import { NextGameTime } from "../../utils/game-utils";
 import Countdown from "react-countdown";
+import { GameState } from "../../utils/game-state";
 
 const Modal: FC = () => {
   const { game, won, journeySummery } = useContext(GameContext);

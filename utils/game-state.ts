@@ -1,0 +1,6 @@
+export const GameState = {
+  PENDING: "PENDING",
+  LOADING: "LOADING",
+  IN_PROGRESS: "IN_PROGRESS",
+  FINISHED: "FINISHED",
+};

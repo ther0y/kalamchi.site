@@ -5,8 +5,8 @@ import { Notyf } from "notyf";
 import CharacterInput from "./CharacterInput";
 import { Base64 } from "../utils/Base64";
 import { GameWord } from "../utils/words";
-import { GameState } from "../utils/game-utils";
 import Spinner from "./Spinner";
+import { GameState } from "../utils/game-state";
 
 let jsConfetti: JSConfetti;
 let notyf: any;

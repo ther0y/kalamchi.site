@@ -1,13 +1,5 @@
-import { format, getHours, addHours, set } from "date-fns";
-import { getWordByGameId } from "./words";
-import { Base64 } from "./Base64";
-
-export const GameState = {
-  PENDING: "PENDING",
-  LOADING: "LOADING",
-  IN_PROGRESS: "IN_PROGRESS",
-  FINISHED: "FINISHED",
-};
+import { addHours, format, getHours, set } from "date-fns";
+import { convertToTimeZone } from "date-fns-timezone";
 
 const eachGameHour = 8;
 const gameIdFormat = `yy/MM/dd-HH:00`;
@@ -18,7 +10,10 @@ const roundHourDown = (hour: number, roundBy: number) => {
   return roundBy * Math.floor(hour / roundBy);
 };
 
-const now = Date.now();
+const now = convertToTimeZone(Date.now(), {
+  timeZone: "Asia/Tehran",
+}).getTime();
+
 const currentGameHour = roundHourDown(getHours(now), eachGameHour);
 
 export const CurrentGameTime = set(now, {
@@ -36,7 +31,3 @@ export const NextGameTime = set(
   }
 ).getTime();
 export const CurrentGameId = timeToGameId(CurrentGameTime);
-
-const word = getWordByGameId(CurrentGameId);
-
-export const CurrentWord = Base64.encode(Base64.encode(JSON.stringify(word)));

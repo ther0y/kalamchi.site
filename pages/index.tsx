@@ -6,13 +6,13 @@ import GameProvider from "../state/game/game.provider";
 import {
   CurrentGameId,
   CurrentGameTime,
-  CurrentWord,
-  GameState,
   NextGameTime,
 } from "../utils/game-utils";
 import { Game } from "../state/game/game.context";
 import { Base64 } from "../utils/Base64";
 import Modal from "../components/header/Modal";
+import { GameState } from "../utils/game-state";
+import { CurrentWord } from "../utils/word-utils";
 
 type props = {
   currentGameTime: number;

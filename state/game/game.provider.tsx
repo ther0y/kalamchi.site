@@ -2,9 +2,10 @@ import React, { FC, useCallback, useEffect, useState } from "react";
 import { Game, GameContext } from "./game.context";
 import { LsBox } from "../../utils/encryoted-localstorage";
 import { LsNames } from "../../utils/ls-names";
-import { CurrentGameId, GameState } from "../../utils/game-utils";
+import { CurrentGameId } from "../../utils/game-utils";
 import { Base64 } from "../../utils/Base64";
 import { GameWord } from "../../utils/words";
+import { GameState } from "../../utils/game-state";
 
 type props = {
   initialState: Game;
