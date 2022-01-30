@@ -91,7 +91,7 @@ const Home: NextPage<props> = ({ game, currentGameTime, nextGameTime }) => {
   );
 };
 
-export async function getServerSideProps(): Promise<{
+export async function getStaticProps(): Promise<{
   props: props;
 }> {
   const wordData = JSON.parse(Base64.decode(Base64.decode(CurrentWord)));
