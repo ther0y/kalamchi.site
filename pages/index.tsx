@@ -12,7 +12,7 @@ import { Game } from "../state/game/game.context";
 import { Base64 } from "../utils/Base64";
 import Modal from "../components/header/Modal";
 import { GameState } from "../utils/game-state";
-import { CurrentWord } from "../utils/word-utils";
+import { GetCurrentWord } from "../utils/word-utils";
 
 type props = {
   currentGameTime: number;
@@ -95,7 +95,7 @@ export async function getStaticProps(): Promise<{
   revalidate: number;
   props: props;
 }> {
-  const wordData = JSON.parse(Base64.decode(Base64.decode(CurrentWord)));
+  const wordData = JSON.parse(Base64.decode(Base64.decode(GetCurrentWord())));
   return {
     revalidate: 5 * 60,
     props: {
@@ -104,7 +104,7 @@ export async function getStaticProps(): Promise<{
       game: {
         id: GetCurrentGameId(),
         state: GameState.IN_PROGRESS,
-        word: CurrentWord,
+        word: GetCurrentWord(),
         guesses: Array(wordData.guessCount)
           .fill(null)
           .map(() => ({
