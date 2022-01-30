@@ -4,9 +4,9 @@ import CharacterInput from "../components/CharacterInput";
 import Header from "../components/header/Header";
 import GameProvider from "../state/game/game.provider";
 import {
-  CurrentGameId,
-  CurrentGameTime,
-  NextGameTime,
+  GetCurrentGameId,
+  GetCurrentGameTime,
+  GetNextGameTime,
 } from "../utils/game-utils";
 import { Game } from "../state/game/game.context";
 import { Base64 } from "../utils/Base64";
@@ -95,13 +95,12 @@ export async function getStaticProps(): Promise<{
   props: props;
 }> {
   const wordData = JSON.parse(Base64.decode(Base64.decode(CurrentWord)));
-
   return {
     props: {
-      currentGameTime: CurrentGameTime,
-      nextGameTime: NextGameTime,
+      currentGameTime: GetCurrentGameTime(),
+      nextGameTime: GetNextGameTime(),
       game: {
-        id: CurrentGameId,
+        id: GetCurrentGameId(),
         state: GameState.IN_PROGRESS,
         word: CurrentWord,
         guesses: Array(wordData.guessCount)

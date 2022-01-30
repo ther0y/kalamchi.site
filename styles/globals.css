@@ -35,6 +35,11 @@ a {
     position: relative;
 }
 
+.clipboard-notyf {
+    position: relative;
+    top: 7.5rem;
+}
+
 .notyf__message {
     animation: none !important;
     opacity: 1 !important;

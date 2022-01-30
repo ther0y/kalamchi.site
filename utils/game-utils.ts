@@ -10,24 +10,29 @@ const roundHourDown = (hour: number, roundBy: number) => {
   return roundBy * Math.floor(hour / roundBy);
 };
 
-const now = convertToTimeZone(Date.now(), {
-  timeZone: "Asia/Tehran",
-}).getTime();
+export const GetCurrentGameTime = () => {
+  const now = convertToTimeZone(Date.now(), {
+    timeZone: "Asia/Tehran",
+  }).getTime();
 
-const currentGameHour = roundHourDown(getHours(now), eachGameHour);
+  const currentGameHour = roundHourDown(getHours(now), eachGameHour);
 
-export const CurrentGameTime = set(now, {
-  hours: currentGameHour,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0,
-}).getTime();
-export const NextGameTime = set(
-  addHours(CurrentGameTime, eachGameHour).getTime(),
-  {
+  return set(now, {
+    hours: currentGameHour,
     minutes: 0,
     seconds: 0,
     milliseconds: 0,
-  }
-).getTime();
-export const CurrentGameId = timeToGameId(CurrentGameTime);
+  }).getTime();
+};
+
+export const GetNextGameTime = () => {
+  return set(addHours(GetCurrentGameTime(), eachGameHour).getTime(), {
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0,
+  }).getTime();
+};
+
+export const GetCurrentGameId = () => {
+  return timeToGameId(GetCurrentGameTime());
+};

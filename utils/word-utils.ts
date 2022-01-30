@@ -1,7 +1,7 @@
 import { Base64 } from "./Base64";
 import { getWordByGameId } from "./words";
-import { CurrentGameId } from "./game-utils";
+import { GetCurrentGameId } from "./game-utils";
 
-const word = getWordByGameId(CurrentGameId);
+const word = getWordByGameId(GetCurrentGameId());
 
 export const CurrentWord = Base64.encode(Base64.encode(JSON.stringify(word)));

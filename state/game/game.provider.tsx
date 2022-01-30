@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from "react";
 import { Game, GameContext } from "./game.context";
 import { LsBox } from "../../utils/encryoted-localstorage";
 import { LsNames } from "../../utils/ls-names";
-import { CurrentGameId } from "../../utils/game-utils";
+import { GetCurrentGameId } from "../../utils/game-utils";
 import { Base64 } from "../../utils/Base64";
 import { GameWord } from "../../utils/words";
 import { GameState } from "../../utils/game-state";
@@ -19,13 +19,15 @@ const GameProvider: FC<props> = ({ initialState, children }) => {
   const journeyState = JSON.parse(journeyStateBox.get() || "{}");
 
   let gameState =
-    initialState.id === savedState.id
+    initialState.id === savedState.id && initialState.word === savedState.word
       ? { ...initialState, ...savedState }
       : initialState;
 
   //TODO: check game id before merging state
   const [game, setGame] = useState<Game>(gameState);
-  const [won, _setWon] = useState(journeyState[CurrentGameId] || false);
+  const [won, _setWon] = useState(journeyState[GetCurrentGameId()] || false);
+
+  const [gameOverview, setGameOverview] = useState("");
 
   let games = Object.keys(journeyState).length;
   let wins = Object.values(journeyState).filter((s) => s).length;
@@ -42,7 +44,7 @@ const GameProvider: FC<props> = ({ initialState, children }) => {
       journeyStateBox.set(
         JSON.stringify({
           ...journeyState,
-          [CurrentGameId]: hasWon,
+          [GetCurrentGameId()]: hasWon,
         })
       );
     },
@@ -57,6 +59,26 @@ const GameProvider: FC<props> = ({ initialState, children }) => {
     if (game.state === GameState.FINISHED) {
       setWon(game.guesses.some((g) => g.value === word.value));
     }
+
+    const guessedCount = game.guesses.filter((g) => g.value).length;
+    const tries = `${!won ? "X" : guessedCount}/${word.guessCount}`;
+    const overview = game.guesses
+      .filter((g) => g.value)
+      .map((g) => {
+        return Array(g.value.length)
+          .fill(null)
+          .map((_, index) => {
+            if (g.parts[index] === word.value[index]) return "🟩";
+            if (word.value.includes(g.parts[index])) return "🟨";
+            return "⬛";
+          })
+          .join("");
+      })
+      .join("\n");
+
+    setGameOverview(
+      `#kalamchi ${word.round} ${tries}\n${overview}\nkalamchi.site`
+    );
   }, [game, savedStateBox, setWon]);
 
   useEffect(() => {
@@ -67,7 +89,7 @@ const GameProvider: FC<props> = ({ initialState, children }) => {
     let winPercentage = wins ? Math.ceil(wins / games) * 100 : 0;
 
     setJourneySummery({ wins, games, winPercentage });
-  }, [won]);
+  }, [won, game]);
 
   return (
     <GameContext.Provider
@@ -77,6 +99,7 @@ const GameProvider: FC<props> = ({ initialState, children }) => {
         won,
         setWon,
         journeySummery,
+        gameOverview,
       }}
     >
       {children}
