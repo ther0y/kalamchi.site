@@ -44,11 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="twitter:title" content="کلمچی | بازی حدس کلمه" />
         <meta name="twitter:description" content="یک Wordle فارسی دیگه!" />
         <meta name="twitter:image" content="https://kalamchi.site/banner.jpg" />
-        <link
-          href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css"
-          rel="stylesheet"
-          type="text/css"
-        />
+
         <script
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"
