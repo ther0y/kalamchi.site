@@ -37,19 +37,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="og:description"
           content="بازی حدس کلمه کلمچی یک Wordle فارسی دیگه!"
         />
-        <meta
-          name="og:image"
-          content="https://kalamchi.site/icons/android-chrome-512x512.png"
-        />
+        <meta name="og:image" content="https://kalamchi.site/banner.jpg" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@__masood_" />
         <meta name="twitter:creator" content="@__masood_" />
         <meta name="twitter:title" content="کلمچی | بازی حدس کلمه" />
         <meta name="twitter:description" content="یک Wordle فارسی دیگه!" />
-        <meta
-          name="twitter:image"
-          content="https://kalamchi.site/icons/android-chrome-512x512.png"
-        />
+        <meta name="twitter:image" content="https://kalamchi.site/banner.jpg" />
         <link
           href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css"
           rel="stylesheet"
