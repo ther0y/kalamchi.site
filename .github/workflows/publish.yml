@@ -26,8 +26,9 @@ jobs:
           FANDOGH_PASSWORD: ${{ secrets.FANDOGH_PASSWORD }}
           APP_DOMAIN: ${{ secrets.APP_DOMAIN }}
           VAJEHYAB_TOKEN: ${{ secrets.VAJEHYAB_TOKEN }}
+          NEXT_PUBLIC_GOOGLE_ANALYTICS: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }}
         run: |
           yes | fandogh login --username="$FANDOGH_USERNAME" --password="$FANDOGH_PASSWORD"
           fandogh image init --name="$FANDOGH_SERVICE_NAME"
           fandogh image publish --version="v$GITHUB_RUN_ID"
-          fandogh service deploy --image="$FANDOGH_SERVICE_NAME" --version="v$GITHUB_RUN_ID" --name="$FANDOGH_SERVICE_NAME" --port 3000 --hosts="$APP_DOMAIN" --env VAJEHYAB_TOKEN="$VAJEHYAB_TOKEN"
+          fandogh service deploy --image="$FANDOGH_SERVICE_NAME" --version="v$GITHUB_RUN_ID" --name="$FANDOGH_SERVICE_NAME" --port 3000 --hosts="$APP_DOMAIN" --env VAJEHYAB_TOKEN="$VAJEHYAB_TOKEN" --env NEXT_PUBLIC_GOOGLE_ANALYTICS="$NEXT_PUBLIC_GOOGLE_ANALYTICS"
