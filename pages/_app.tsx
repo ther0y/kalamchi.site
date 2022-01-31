@@ -2,14 +2,14 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Script from "next/script";
+import { NEXT_PUBLIC_GOOGLE_ANALYTICS } from "../utils/secrets";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <Script
         strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
       />
       <Script id="ga-script" strategy="lazyOnload">
         {`
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           
-          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+          gtag('config', '${NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
             page_path: window.location.pathname,
           });
         `}

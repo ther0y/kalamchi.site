@@ -31,4 +31,4 @@ jobs:
           yes | fandogh login --username="$FANDOGH_USERNAME" --password="$FANDOGH_PASSWORD"
           fandogh image init --name="$FANDOGH_SERVICE_NAME"
           fandogh image publish --version="v$GITHUB_RUN_ID"
-          fandogh service deploy --image="$FANDOGH_SERVICE_NAME" --version="v$GITHUB_RUN_ID" --name="$FANDOGH_SERVICE_NAME" --port 3000 --hosts="$APP_DOMAIN" -e VAJEHYAB_TOKEN="$VAJEHYAB_TOKEN" -e NEXT_PUBLIC_GOOGLE_ANALYTICS="$NEXT_PUBLIC_GOOGLE_ANALYTICS"
+          fandogh service deploy --image="$FANDOGH_SERVICE_NAME" --version="v$GITHUB_RUN_ID" --name="$FANDOGH_SERVICE_NAME" --port 3000 --hosts="$APP_DOMAIN" --env VAJEHYAB_TOKEN="$VAJEHYAB_TOKEN" --env NEXT_PUBLIC_GOOGLE_ANALYTICS="$NEXT_PUBLIC_GOOGLE_ANALYTICS"
