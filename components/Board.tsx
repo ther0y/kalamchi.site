@@ -7,6 +7,7 @@ import { Base64 } from "../utils/Base64";
 import { GameWord } from "../utils/words";
 import Spinner from "./Spinner";
 import { GameState } from "../utils/game-state";
+import { CharacterState } from "../utils/character-state";
 
 let jsConfetti: JSConfetti;
 let notyf: any;
@@ -68,6 +69,25 @@ const Board: FC<props> = ({}) => {
     return input.match(persianLetters);
   };
 
+  function setCharacterStates(currentGuess: {
+    parts: { char: string; state: string }[];
+    value: string;
+  }) {
+    for (let c of wordChars) {
+      const guessedCharIndex = currentGuess.parts.findIndex(
+        (p) => p.char === c.char && p.state === CharacterState.NONE
+      );
+
+      if (guessedCharIndex >= 0) {
+        if (c.id === guessedCharIndex) {
+          currentGuess.parts[guessedCharIndex].state = CharacterState.CORRECT;
+        } else {
+          currentGuess.parts[guessedCharIndex].state = CharacterState.MISPLACED;
+        }
+      }
+    }
+  }
+
   const handleKeydown = async (e: any) => {
     const game = gameStateRef.current;
     const word = JSON.parse(Base64.decode(Base64.decode(game.word)));
@@ -91,6 +111,7 @@ const Board: FC<props> = ({}) => {
             if (word.value === currentGuess.value) {
               inputRef?.current?.blur();
               jsConfetti.addConfetti().then();
+              setCharacterStates(currentGuess);
               setGame({
                 ...game,
                 state: GameState.FINISHED,
@@ -108,6 +129,8 @@ const Board: FC<props> = ({}) => {
                   await shake();
                   setIsProcessing(false);
 
+                  setCharacterStates(currentGuess);
+
                   return setGame({
                     ...game,
                     guessIndex: game.guessIndex + 1,
@@ -117,6 +140,8 @@ const Board: FC<props> = ({}) => {
                     ...game,
                     state: GameState.FINISHED,
                   });
+
+                  setCharacterStates(currentGuess);
                   return setIsProcessing(false);
                 }
               } else {
@@ -137,12 +162,15 @@ const Board: FC<props> = ({}) => {
 
       if (!isGuessFilled && isValidInput(key)) {
         currentGuess.value = currentGuess.value + key;
-        currentGuess.parts = currentGuess.value.split("");
+        currentGuess.parts = currentGuess.value.split("").map((c, index) => ({
+          state: CharacterState.NONE,
+          char: c,
+        }));
       }
 
       if (key === "Backspace") {
         currentGuess.value = currentGuess.value.slice(0, -1);
-        currentGuess.parts = currentGuess.value.split("");
+        currentGuess.parts = currentGuess.parts.slice(0, -1);
       }
 
       setGame({
@@ -226,7 +254,12 @@ const Board: FC<props> = ({}) => {
                   return (
                     <span key={charIndex}>
                       <CharacterInput
-                        char={showIndicators ? ag.parts[w.id] : "‌ "}
+                        char={showIndicators ? ag.parts[w.id]?.char : "‌ "}
+                        state={
+                          showIndicators
+                            ? ag.parts[w.id]?.state
+                            : CharacterState.NONE
+                        }
                         index={charIndex}
                         guess={ag.value}
                         shouldBe={word.value[charIndex]}

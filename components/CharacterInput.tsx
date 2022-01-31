@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./CharacterInput.module.css";
+import { CharacterState } from "../utils/character-state";
 
 type props = {
   sample?: boolean;
   char?: string;
+  state?: string;
   disabled?: boolean;
   index?: number;
   guess?: string;
@@ -15,6 +17,7 @@ type props = {
 const CharacterInput: FC<props> = ({
   sample,
   char,
+  state,
   disabled,
   status,
   word = "",
@@ -36,16 +39,12 @@ const CharacterInput: FC<props> = ({
       .join("");
 
     let correct =
-      (sample && status === "correct") ||
-      (disabled && char && word?.includes(char) && shouldBe === char);
+      (sample && state === CharacterState.CORRECT) ||
+      (disabled && char && state === CharacterState.CORRECT);
 
     let contains =
-      (sample && status === "contains") ||
-      (disabled &&
-        char &&
-        shouldBe !== char &&
-        remaining.includes(char) &&
-        guess.indexOf(char) === index);
+      (sample && state === CharacterState.MISPLACED) ||
+      (disabled && char && state === CharacterState.MISPLACED);
 
     setCorrect(!!correct);
     setContains(!!contains);

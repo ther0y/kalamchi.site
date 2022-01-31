@@ -6,6 +6,7 @@ import { GetCurrentGameId } from "../../utils/game-utils";
 import { Base64 } from "../../utils/Base64";
 import { GameWord } from "../../utils/words";
 import { GameState } from "../../utils/game-state";
+import { CharacterState } from "../../utils/character-state";
 
 type props = {
   initialState: Game;
@@ -68,10 +69,11 @@ const GameProvider: FC<props> = ({ initialState, children }) => {
         return Array(g.value.length)
           .fill(null)
           .map((_, index) => {
-            if (g.parts[index] === word.value[index]) return "🟩";
-            if (word.value.includes(g.parts[index])) return "🟨";
+            if (g.parts[index].state === CharacterState.CORRECT) return "🟩";
+            if (g.parts[index].state === CharacterState.MISPLACED) return "🟨";
             return "⬛";
           })
+          .reverse()
           .join("");
       })
       .join("\n");

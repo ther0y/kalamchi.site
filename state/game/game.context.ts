@@ -1,6 +1,8 @@
 import React from "react";
+import { CharacterState } from "../../utils/character-state";
+import { string } from "prop-types";
 
-export type Guess = { value: string; parts: string[] };
+export type Guess = { value: string; parts: { char: string; state: string }[] };
 
 export type Game = {
   id: string;

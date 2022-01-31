@@ -13,6 +13,7 @@ import { Base64 } from "../utils/Base64";
 import Modal from "../components/header/Modal";
 import { GameState } from "../utils/game-state";
 import { GetCurrentWord } from "../utils/word-utils";
+import { CharacterState } from "../utils/character-state";
 
 type props = {
   currentGameTime: number;
@@ -108,6 +109,7 @@ export async function getStaticProps(): Promise<{
         guesses: Array(wordData.guessCount)
           .fill(null)
           .map(() => ({
+            state: CharacterState.NONE,
             value: "",
             parts: [],
           })),
