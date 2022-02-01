@@ -7,9 +7,6 @@ type props = {
   char?: string;
   state?: string;
   disabled?: boolean;
-  index?: number;
-  guess?: string;
-  shouldBe?: string;
   status?: "correct" | "contains";
   word?: string;
 };
@@ -21,23 +18,12 @@ const CharacterInput: FC<props> = ({
   disabled,
   status,
   word = "",
-  guess = "",
-  shouldBe,
-  index,
 }) => {
   const [correct, setCorrect] = useState(false);
   const [contains, setContains] = useState(false);
   let classes = styles.block;
 
   useEffect(() => {
-    const remaining = word
-      .split("")
-      .map((w, index) => {
-        if (w === guess[index]) return "/";
-        return w;
-      })
-      .join("");
-
     let correct =
       (sample && state === CharacterState.CORRECT) ||
       (disabled && char && state === CharacterState.CORRECT);

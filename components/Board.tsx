@@ -260,9 +260,6 @@ const Board: FC<props> = ({}) => {
                             ? ag.parts[w.id]?.state
                             : CharacterState.NONE
                         }
-                        index={charIndex}
-                        guess={ag.value}
-                        shouldBe={word.value[charIndex]}
                         word={word.value}
                         disabled={
                           !showIndicators ||

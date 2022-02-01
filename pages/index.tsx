@@ -59,12 +59,22 @@ const Home: NextPage<props> = ({ game, currentGameTime, nextGameTime }) => {
           <h4 className="mb-4 font-bold">🎲 ‌ قوانین بازی:</h4>
           <ul className="list-disc pr-10">
             <li className="pb-2">
-              <CharacterInput sample status="contains" char="ش" disabled /> یعنی
-              تو کلمه «ش» هست ولی جاش اشتباهه!
+              <CharacterInput
+                sample
+                state={CharacterState.MISPLACED}
+                char="ش"
+                disabled
+              />{" "}
+              یعنی تو کلمه «ش» هست ولی جاش اشتباهه!
             </li>
             <li className="pb-2">
-              <CharacterInput sample status="correct" char="ل" disabled /> یعنی
-              دقیقا همینجای کلمه «ل» داره!
+              <CharacterInput
+                sample
+                state={CharacterState.CORRECT}
+                char="ل"
+                disabled
+              />{" "}
+              یعنی دقیقا همینجای کلمه «ل» داره!
             </li>
             <li>
               <CharacterInput sample char="ه" disabled /> یعنی «ه» نداره!
