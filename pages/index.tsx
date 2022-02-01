@@ -82,7 +82,7 @@ const Home: NextPage<props> = ({ game, currentGameTime, nextGameTime }) => {
           </ul>
         </section>
         <div className="divider" />
-        <footer className="mt-2 mr-2">
+        <footer className="mt-2 mr-2 mb-12">
           <div className="flex gap-1">
             <a href="https://masood.dev" target="_blank" rel="noreferrer">
               مسعود
