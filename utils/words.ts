@@ -120,4 +120,34 @@ const Words: { [key: string]: GameWord } = {
     value: "نقاله",
     guessCount: 6,
   },
+  "22/02/07-00:00": {
+    round: 23,
+    value: "ایران",
+    guessCount: 6,
+  },
+  "22/02/07-08:00": {
+    round: 24,
+    value: "ایران",
+    guessCount: 6,
+  },
+  "22/02/07-16:00": {
+    round: 25,
+    value: "سیاره",
+    guessCount: 6,
+  },
+  "22/02/08-00:00": {
+    round: 26,
+    value: "پارچه",
+    guessCount: 6,
+  },
+  "22/02/08-08:00": {
+    round: 27,
+    value: "شکلات",
+    guessCount: 6,
+  },
+  "22/02/08-16:00": {
+    round: 28,
+    value: "مساحت",
+    guessCount: 6,
+  },
 };
