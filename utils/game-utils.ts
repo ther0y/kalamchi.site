@@ -2,7 +2,7 @@ import { addHours, format, getHours, set } from "date-fns";
 import { convertToTimeZone } from "date-fns-timezone";
 
 const eachGameHour = 8;
-const gameIdFormat = `yy/MM/dd-HH:00`;
+const gameIdFormat = `yyyy-MM-dd'T'HH:00`;
 
 export const timeToGameId = (time: number) => format(time, gameIdFormat);
 

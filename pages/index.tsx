@@ -14,6 +14,8 @@ import Modal from "../components/header/Modal";
 import { GameState } from "../utils/game-state";
 import { GetCurrentWord } from "../utils/word-utils";
 import { CharacterState } from "../utils/character-state";
+import client from "../apollo-client";
+import { gql } from "@apollo/client";
 
 type props = {
   currentGameTime: number;
@@ -102,19 +104,68 @@ const Home: NextPage<props> = ({ game, currentGameTime, nextGameTime }) => {
   );
 };
 
+async function getGameById(id: string) {
+  const { data } = await client.query({
+    query: gql`
+      query Games($id: String!) {
+        gameById(id: $id) {
+          id
+          date
+          round
+          word
+          guess_count
+        }
+      }
+    `,
+    variables: {
+      id,
+    },
+    fetchPolicy: "no-cache",
+  });
+
+  return data.gameById;
+}
+
 export async function getServerSideProps(): Promise<{
   props: props;
 }> {
-  const wordData = JSON.parse(Base64.decode(Base64.decode(GetCurrentWord())));
+  const { data } = await client.query({
+    query: gql`
+      query Games {
+        games(where: { date: { _eq: "${GetCurrentGameId()}" } }) {
+          id
+        }
+      }
+    `,
+    fetchPolicy: "no-cache",
+  });
+
+  const [{ id }] =
+    Array.isArray(data?.games) && data.games.length
+      ? data.games
+      : [{ id: "9dd281d2-8012-4c84-968f-782750b30dec" }];
+
+  const game = await getGameById(id);
+
+  const word = Base64.decode(Base64.decode(game.word));
+
   return {
     props: {
       currentGameTime: GetCurrentGameTime(),
       nextGameTime: GetNextGameTime(),
       game: {
-        id: GetCurrentGameId(),
+        id: game.id,
         state: GameState.IN_PROGRESS,
-        word: GetCurrentWord(),
-        guesses: Array(wordData.guessCount)
+        word: Base64.encode(
+          Base64.encode(
+            JSON.stringify({
+              round: game.round,
+              value: word,
+              guessCount: game.guess_count,
+            })
+          )
+        ),
+        guesses: Array(game.guess_count)
           .fill(null)
           .map(() => ({
             state: CharacterState.NONE,
